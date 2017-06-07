@@ -77,19 +77,18 @@
     L.marker([52.52,13.40]).addTo(map);
 
     // add the EdgeMarker to the map.
-    var edgeMarkerLayer = L.edgeMarker({
-      icon: L.icon({ // style markers
-          iconUrl: 'images/edge-arrow-marker-black.png',
+    var icon = L.icon({ // style markers
+          iconUrl : 'images/edge-arrow-marker-black.png',
           clickable: true,
-          iconSize: [48, 48],
+          iconSize: [48,48],
           iconAnchor: [24, 24]
-      },
-      rotateIcons: true, // rotate EdgeMarkers depending on their relative position
-      layerGroup: null // you can specify a certain L.layerGroup to create the edge markers from.
-    }).addTo(map);
+      })
+    for (var l in map._layers) {
+      if (typeof map._layers[l].getLatLng !== 'undefined') {
+          map._layers[l].bindEdgeMarker({icon:icon});
+      }
+    }
 
-    // if you want to remove the edge markers
-    // edgeMarkerLayer.destroy();
   </code>
 </pre>
 
@@ -97,6 +96,7 @@
 
   <script src="//cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
   <script src="Leaflet.EdgeMarker.js"></script>
+  <script src="https://cdn.rawgit.com/bbecquet/Leaflet.RotatedMarker/6d902f17/leaflet.rotatedMarker.js"></script>
   <script>
     // create a map
     var map = L.map('map').setView([51.2,10.43], 6);
@@ -144,14 +144,17 @@
     L.marker([50.43,30.52]).addTo(map);
 
     // add the EdgeMarker to the map.
-    var edgeMarkerLayer = L.edgeMarker({
-      icon: L.icon({ // style markers
+    var icon = L.icon({ // style markers
           iconUrl : 'images/edge-arrow-marker-black.png',
           clickable: true,
           iconSize: [48,48],
           iconAnchor: [24, 24]
       })
-    }).addTo(map);
+    for (var l in map._layers) {
+      if (typeof map._layers[l].getLatLng !== 'undefined') {
+          map._layers[l].bindEdgeMarker({icon:icon});
+      }
+    }
 
     // if you want to remove the edge markers
     // edgeMarkerLayer.destroy();
